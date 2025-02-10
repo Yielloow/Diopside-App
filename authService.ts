@@ -5,7 +5,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 // 🔹 Génère un ID unique pour le nom d'utilisateur (ex : #1234)
 function generateUserTag(): string {
-  return `#${Math.floor(1000 + Math.random() * 9000)}`; // Génère un ID entre #1000 et #9999
+  return `#${Math.floor(1000 + Math.random() * 9998999)}`; // Génère un ID entre #1000 et #9999999
 }
 
 // 🔹 Inscription d'un utilisateur avec nom d'utilisateur

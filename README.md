@@ -1,39 +1,41 @@
 # Diopside-App
 
-Git Command
-git add .
-git commit -m "<modif-apportée>"
-git push -u origin main (pour importer dans la branche main)
-git push origin <nom-de-ta-branche>
+## Git Command
+1. git add .
+   git commit -m "<modif-apportée>"
+   git push -u origin main (pour importer dans la branche main)
+   git push origin <nom-de-ta-branche>
 
-Install React CLI 
-npm install -g react-native@latest
+Install React CLI
+   npm install -g react-native@latest
 
 Install Expo CLI
-npm install -g expo-cli
+   npm install -g expo-cli
 
 Installation de Android Studio
-https://developer.android.com/studio?hl=fr
+   https://developer.android.com/studio?hl=fr
 
-To fix vulnerabilities
+## To fix vulnerabilities
 
-- High Vulnerabilities
-npm audit fix --force 
+   - High Vulnerabilities
+      npm audit fix --force 
 
-- Medium Vulnerabilities
-npm audit fix --force 
+   - Medium Vulnerabilities
+      npm audit fix --force 
 
-- Low Vulnerabilities
-npm audit fix
+   - Low Vulnerabilities
+      npm audit fix
 
-Run Android
-npx react-native run-android
 
-Run iOS
-npx react-native run-ios
+## Run Expo
+   Run Android
+      npx react-native run-android
 
-Run EXPO
-npx expo start
+   Run iOS
+      npx react-native run-ios
+
+   Run EXPO
+      npx expo start
 
 Attention
 Une fois le développement terminé, il peut être préférable de remettre la politique d'execution de script à sa valeur initiale (powershell) avec :

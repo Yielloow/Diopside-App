@@ -1,5 +1,11 @@
 # Diopside-App
 
+Git Command
+git add .
+git commit -m "<modif-apportée>"
+git push -u origin main (pour importer dans la branche main)
+git push origin <nom-de-ta-branche>
+
 Install React CLI 
 npm install -g react-native@latest
 

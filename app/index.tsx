@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import Root from "./root"; // ✅ Root contient la navigation
+import 'react-native-reanimated';
 
 export default function App() {
   return (

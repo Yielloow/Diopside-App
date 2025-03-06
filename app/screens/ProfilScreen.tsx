@@ -1,76 +1,99 @@
-import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, FlatList, Image, Alert } from "react-native";
+import { auth, db } from "../../firebaseConfig";
+import { collection, query, where, getDocs, updateDoc, doc, getDoc } from "firebase/firestore";
+import { deleteDoc } from "firebase/firestore";
 
 export default function ProfilScreen() {
+  const [code, setCode] = useState("");
+  const [unlockedItems, setUnlockedItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+  
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+  
+      if (userSnap.exists()) {
+        console.log("📌 Données récupérées depuis Firestore :", userSnap.data());
+        setUnlockedItems(userSnap.data().unlocked_items || []);
+      } else {
+        console.log("❌ Aucune donnée trouvée pour cet utilisateur.");
+      }
+    };
+  
+    fetchUserData();
+  }, []);  
+
+  const handleCodeValidation = async () => {
+    if (!code.trim()) {
+      Alert.alert("Erreur", "Veuillez entrer un code.");
+      return;
+    }
+  
+    try {
+      const q = query(collection(db, "purchases"), where("code", "==", code));
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        const purchaseDoc = querySnapshot.docs[0];
+        const purchaseData = purchaseDoc.data();
+  
+        const user = auth.currentUser;
+        if (!user) {
+          Alert.alert("Erreur", "Vous devez être connecté.");
+          return;
+        }
+  
+        const userRef = doc(db, "users", user.uid);
+        await updateDoc(userRef, {
+          unlocked_items: [...unlockedItems, purchaseData.item],
+        });
+  
+        // Suppression du code une fois utilisé
+        await deleteDoc(doc(db, "purchases", purchaseDoc.id));
+  
+        setUnlockedItems([...unlockedItems, purchaseData.item]);
+        Alert.alert("Succès", "Vêtement débloqué !");
+      } else {
+        Alert.alert("Erreur", "Code invalide ou déjà utilisé.");
+      }
+    } catch (error) {
+      console.error("Erreur validation code :", error);
+      Alert.alert("Erreur", "Impossible de vérifier le code.");
+    }
+  };  
+
+  const allItems = [
+    { id: "9638803570952", name: "Lapidaire Noir", image: require("../../assets/images/clothes/tshirt_front.png") },
+    { id: "9638888177928", name: "Verdelite Primo", image: require("../../assets/images/clothes/new_flatlay_front+verdelite.png") },
+    { id: "9621285208328", name: "Quartzite Primo", image: require("../../assets/images/clothes/quartziteprimo.jpg") },
+  ];
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton}>
-        <Link href="/screens/HomeScreen">
-          <Ionicons name="home" size={28} color="#a7c191" />
-        </Link>
+    <View>
+      <TextInput
+        placeholder="Entrer votre code ici"
+        value={code}
+        onChangeText={setCode}
+        style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+      />
+      <TouchableOpacity onPress={handleCodeValidation} style={{ backgroundColor: "#a7c191", padding: 10 }}>
+        <Text style={{ color: "#black" }}>Valider le code</Text>
       </TouchableOpacity>
-      <View style={styles.navbar}>
-        <Link href="/screens/ShopScreen" asChild>
-          <TouchableOpacity style={styles.navButton}>
-            <Ionicons name="cart" size={36} color="#a7c191" />
-          </TouchableOpacity>
-        </Link>
-        <Link href="/screens/DiscussScreen" asChild>
-          <TouchableOpacity style={styles.navButton}>
-            <Ionicons name="chatbubble" size={36} color="#a7c191" />
-          </TouchableOpacity>
-        </Link>
-        <Link href="/screens/FiltersScreen" asChild>
-          <TouchableOpacity style={styles.navButton}>
-            <Ionicons name="filter" size={36} color="#a7c191" />
-          </TouchableOpacity>
-        </Link>
-        <Link href="/screens/DressScreen" asChild>
-          <TouchableOpacity style={styles.navButton}>
-            <Ionicons name="shirt" size={36} color="#a7c191" />
-          </TouchableOpacity>
-        </Link>
-        <Link href="/screens/ProfilScreen" asChild>
-          <TouchableOpacity style={styles.navButton}>
-            <Ionicons name="person" size={36} color="#a7c191" />
-          </TouchableOpacity>
-        </Link>
-      </View>
+
+      <FlatList
+        data={allItems}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={{ opacity: unlockedItems.includes(item.id) ? 1 : 0.3 }}>
+            <Image source={item.image} style={{ width: 100, height: 100 }} />
+            <Text>{item.name}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#222",
-  },
-  backButton: {
-    position: "absolute",
-    top: 20,
-    right: 20,
-    backgroundColor: "#333",
-    borderRadius: 10,
-    padding: 10,
-  },
-  navbar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    backgroundColor: "#333",
-    paddingVertical: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    height: 90,
-    alignItems: "center",
-  },
-  navButton: {
-    margin: -15,
-    padding: 10,
-    alignItems: "center",
-  },
-});

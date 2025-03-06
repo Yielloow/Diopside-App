@@ -59,11 +59,11 @@ export default function HomeScreen() {
         <Text style={styles.sectionTitle}>Nos Sélections</Text>
         <View style={styles.productsContainer}>
           <TouchableOpacity style={styles.product}>
-            <Image source={require("../../assets/images/new_flatlay_front+verdelite.png")} style={styles.productImage} />
+            <Image source={require("../../assets/images/clothes/new_flatlay_front+verdelite.png")} style={styles.productImage} />
             <Text style={styles.productText}>Diopside Verdelite</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.product}>
-            <Image source={require("../../assets/images/tshirt_front.png")} style={styles.productImage} />
+            <Image source={require("../../assets/images/clothes/tshirt_front.png")} style={styles.productImage} />
             <Text style={styles.productText}>Lapidaire Noir</Text>
           </TouchableOpacity>
         </View>

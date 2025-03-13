@@ -1,16 +1,22 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
 export default function DressScreen() {
   return (
     <View style={styles.container}>
+      {/* Bouton Home */}
       <TouchableOpacity style={styles.backButton}>
         <Link href="/screens/HomeScreen">
           <Ionicons name="home" size={28} color="#a7c191" />
         </Link>
       </TouchableOpacity>
+
+      {/* Texte de test affiché au centre */}
+      <Text style={styles.testText}>Test réussi !</Text>
+
+      {/* Navbar */}
       <View style={styles.navbar}>
         <Link href="/screens/ShopScreen" asChild>
           <TouchableOpacity style={styles.navButton}>
@@ -46,6 +52,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#222",
+    justifyContent: "center", // Centrer verticalement
+    alignItems: "center", // Centrer horizontalement
   },
   backButton: {
     position: "absolute",
@@ -72,5 +80,12 @@ const styles = StyleSheet.create({
     margin: -15,
     padding: 10,
     alignItems: "center",
+  },
+  testText: {
+    fontSize: 24,
+    color: "#a7c191",
+    fontWeight: "bold",
+    position: "absolute",
+    top: "40%", // Ajuste la position verticale
   },
 });

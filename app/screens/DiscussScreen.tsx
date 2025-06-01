@@ -147,7 +147,7 @@ export default function DiscussScreen() {
           placeholder="Écrivez un message..."
           placeholderTextColor="#ccc"
         />
-        <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
+        <TouchableOpacity onPress={sendMessage} style={styles.sendButton} testID="send-button">
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>

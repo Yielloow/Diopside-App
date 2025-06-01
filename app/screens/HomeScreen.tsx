@@ -43,9 +43,11 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="home-screen">
       <View style={styles.headerContainer}>
-        <Text style={styles.welcomeText}>Salut, {username || "Chargement..."} 👋</Text>
+      <Text style={styles.welcomeText}>
+        {username ? `Salut, ${username} 👋` : 'Chargement des données...'}
+      </Text>
       </View>
       <Link href="/screens/ProfilScreen" asChild>
         <TouchableOpacity style={styles.profileInfoContainer}>
@@ -59,7 +61,7 @@ export default function HomeScreen() {
         <Text style={styles.sectionTitle}>Nos Sélections</Text>
         <View style={styles.productsContainer}>
           <TouchableOpacity style={styles.product}>
-            <Image source={require("../../assets/images/clothes/new_flatlay_front+verdelite.png")} style={styles.productImage} />
+            <Image source={require("../../assets/images/clothes/new_flatlay_front_verdelite.png")} style={styles.productImage} />
             <Text style={styles.productText}>Diopside Verdelite</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.product}>
@@ -84,7 +86,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </Link>
         <Link href="/screens/DiscussScreen" asChild>
-          <TouchableOpacity style={styles.navButton}>
+          <TouchableOpacity style={styles.navButton} testID="discuss-button">
             <Ionicons name="chatbubble" size={36} color="#a7c191" />
           </TouchableOpacity>
         </Link>
@@ -99,7 +101,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </Link>
         <Link href="/screens/ProfilScreen" asChild>
-          <TouchableOpacity style={styles.navButton}>
+          <TouchableOpacity testID="profil-button" style={styles.navButton}>
             <Ionicons name="person" size={36} color="#a7c191" />
           </TouchableOpacity>
         </Link>

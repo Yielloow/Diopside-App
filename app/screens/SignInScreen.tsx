@@ -13,6 +13,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { signUp, signIn } from "../../authService";
 import CustomAlert from "../components/CustomAlert";
 
+
 // 🔹 Définition des types pour la navigation
 type RootStackParamList = {
   SignIn: undefined;
@@ -89,13 +90,16 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
 
       {/* Champs d'entrée */}
       <TextInput
+        testID="username-input"
         placeholder="Nom d'utilisateur"
         value={username}
         onChangeText={setUsername}
         style={styles.input}
         placeholderTextColor="#999"
       />
+
       <TextInput
+        testID="email-input"
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -103,7 +107,9 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
         keyboardType="email-address"
         placeholderTextColor="#999"
       />
+
       <TextInput
+        testID="password-input"
         placeholder="Mot de passe"
         value={password}
         onChangeText={setPassword}
@@ -118,9 +124,10 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
       ) : (
         <>
           <TouchableOpacity
+            testID="login-button"
             style={styles.primaryButton}
             onPress={handleSignIn}
-            activeOpacity={0.7} // 🔹 Effet de press pour le bouton
+            activeOpacity={0.7}
           >
             <Text style={styles.primaryButtonText}>Se connecter</Text>
           </TouchableOpacity>

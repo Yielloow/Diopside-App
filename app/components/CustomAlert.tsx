@@ -12,7 +12,7 @@ export default function CustomAlert({ visible, message, onClose }: CustomAlertPr
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.overlay}>
         <View style={styles.alertBox}>
-          <Text style={styles.message}>{message}</Text>
+        <Text style={styles.message} accessibilityLabel="alert-message">{message}</Text>
           <Button title="OK" onPress={onClose} />
         </View>
       </View>

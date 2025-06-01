@@ -1,0 +1,12 @@
+// tsconfig.jest.json
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "types": ["jest"],
+      "noEmit": true
+    },
+    "include": ["__tests__"]
+  }
+  

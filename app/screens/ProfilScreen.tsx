@@ -68,7 +68,7 @@ export default function ProfilScreen() {
 
   const allItems = [
     { id: "9638803570952", name: "Lapidaire Noir", image: require("../../assets/images/clothes/tshirt_front.png") },
-    { id: "9638888177928", name: "Verdelite Primo", image: require("../../assets/images/clothes/new_flatlay_front+verdelite.png") },
+    { id: "9638888177928", name: "Verdelite Primo", image: require("../../assets/images/clothes/new_flatlay_front_verdelite.png") },
     { id: "9621285208328", name: "Quartzite Primo", image: require("../../assets/images/clothes/quartziteprimo.jpg") },
   ];
 
